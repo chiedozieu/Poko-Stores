@@ -2,17 +2,22 @@ import { GrSearch } from "react-icons/gr";
 import Logo from "./Logo";
 import { PiUser } from "react-icons/pi";
 import { BsCart4 } from "react-icons/bs";
+import TopHeader from "./TopHeader";
+import { Link } from "react-router-dom";
 
 
 const Header = () => {
   return (
     <>
-    <header className="h-[6rem] shadow-md">
+    <div className="sticky">
+      <TopHeader />
+    </div>
+    <header className="h-[6rem] shadow-md bg-white">
      
       <div className=" h-full container mx-auto flex items-center px-4 justify-between">
-          <div className="">
+          <Link to={'/'} className="cursor-pointer hover:scale-110 transition">
             <Logo />
-          </div>
+          </Link>
      
         
          <div className="hidden md:inline-flex items-center w-full justify-between max-w-md h-12 border border-red-700 rounded-full focus-within:shadow pl-2">
@@ -35,9 +40,9 @@ const Header = () => {
              </div>
             </div>
             <div className="">
-              <button className="px-3 bg-red-700 hover:bg-red-800  py-1 text-white cursor-pointer ">
+              <Link to={'/login'} className="px-4 py-2 bg-red-700 hover:bg-red-800 rounded-md text-white cursor-pointer ">
                 Login
-              </button>
+              </Link>
             </div>
           </div>
 
