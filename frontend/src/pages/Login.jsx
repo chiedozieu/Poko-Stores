@@ -5,6 +5,18 @@ import { Link } from "react-router-dom";
  
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState({});
+
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.id]: e.target.value.trim()});
+        console.log(formData);
+    };
+
+    const handleSubmit = ()=> {
+        e.preventDefault(); 
+    }
+
+
   return (
     <section id="login">
         <div className="mx-auto container p-4">
@@ -14,15 +26,25 @@ const Login = () => {
 
                     </div>
 
-                    <form className="flex flex-col gap-10 p-4">
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-10 p-4">
                         <div className="grid">
                             <label htmlFor="email">Email:</label>
-                            <div className="bg-slate-100 p-2"><input type="email" placeholder="Enter email" className="w-fll h-full outline-none bg-transparent"/></div>
+                            <div className="bg-slate-100 p-2">
+                              <input onChange={handleChange} 
+                                    id="email" 
+                                    type="email" 
+                                    placeholder="Enter email" 
+                                    className="w-fll h-full outline-none bg-transparent"/>
+                            </div>
                         </div>
                         <div className="">
                             <label htmlFor="password">Password:</label>
                             <div className="bg-slate-100 p-2 flex justify-between">
-                               <input type={showPassword ? "text" : "password"} placeholder="Enter password" className="w-fll h-full outline-none bg-transparent" />
+                               <input type={showPassword ? "text" : "password"} 
+                                      placeholder="Enter password" 
+                                      className="w-fll h-full outline-none bg-transparent" id="password"  
+                                      onChange={handleChange}/>
+
                                <div className="cursor-pointer text-xl">
                                  <span onClick={()=> setShowPassword((prev)=> !prev)}> 
                                  {

@@ -12,12 +12,14 @@ const App = () => {
   return (
    <BrowserRouter>
       <Header />
-    <Routes>
-      <Route path='/' element={<Home />}/>
-      <Route path='/login' element={<Login />}/>
-      <Route path='/forgot-password' element={<ForgotPassword />}/>
-      <Route path='/signup' element={<SignUp />}/>
-    </Routes>
+    <main className='min-h-[calc(100vh-200px)]'>
+      <Routes>
+        <Route path='/' element={<Home />}/>
+        <Route path='/login' element={<Login />}/>
+        <Route path='/forgot-password' element={<ForgotPassword />}/>
+        <Route path='/signup' element={<SignUp />}/>
+      </Routes>
+    </main>
      <Footer />
    </BrowserRouter>
   )
