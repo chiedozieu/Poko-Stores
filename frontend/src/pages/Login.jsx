@@ -9,10 +9,10 @@ const Login = () => {
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.id]: e.target.value.trim()});
-        console.log(formData);
+        
     };
 
-    const handleSubmit = ()=> {
+    const handleSubmit = (e)=> {
         e.preventDefault(); 
     }
 
@@ -33,6 +33,7 @@ const Login = () => {
                               <input onChange={handleChange} 
                                     id="email" 
                                     type="email" 
+                                    required
                                     placeholder="Enter email" 
                                     className="w-fll h-full outline-none bg-transparent"/>
                             </div>
@@ -42,6 +43,7 @@ const Login = () => {
                             <div className="bg-slate-100 p-2 flex justify-between">
                                <input type={showPassword ? "text" : "password"} 
                                       placeholder="Enter password" 
+                                      required
                                       className="w-fll h-full outline-none bg-transparent" id="password"  
                                       onChange={handleChange}/>
 
@@ -59,9 +61,9 @@ const Login = () => {
                             </Link> 
                         </div>
 
-                        <button type="submit" className="p-2 w-full bg-red-700 hover:bg-red-800 cursor-pointer text-white text-md rounded-lg ">Login</button>
+                        <button type="submit" className="p-2 w-full bg-blue-500 hover:bg-blue-700 cursor-pointer text-white text-md rounded-lg ">Login</button>
                     </form>
-                    <p className="p-4">Don't have account? <Link to='/signup' className="cursor-pointer text-red-700 hover:text-red-800 hover:underline">Sign Up</Link></p>
+                    <p className="p-4">Don't have account? <Link to='/signup' className="cursor-pointer text-blue-500 hover:text-blue-700 hover:underline">Sign Up</Link></p>
                 </div>
         </div>
 

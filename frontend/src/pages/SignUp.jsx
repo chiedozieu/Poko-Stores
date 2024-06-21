@@ -1,17 +1,47 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { PiUserCircleThin } from "react-icons/pi";
 import { TbEyeCheck, TbEyeClosed,  } from "react-icons/tb"; 
 import { Link } from "react-router-dom";
+import imageToBase64 from "../utils/imageToBase64";
  
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [formData, setFormData] = useState({});
+    const uploadRef = useRef()
 
+    const [formData, setFormData] = useState({
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      profilePic: '' 
+    });
+    
     const handleChange = (e) => {
-        setFormData({...formData, [e.target.id]: e.target.value.trim()});
-        console.log(formData);
+       const {name, value} = e.target
+       setFormData((prev) => {
+        return{
+          ...prev,
+          [name] : value
+        }
+       });
+       console.log(formData)
     };
+
+
+    const handleUploadPic = async (e) => {
+      const file = e.target.files[0];
+
+      const imagePic = await imageToBase64(file)
+      
+      setFormData((prev) => {
+        return{
+          ...prev,
+          profilePic: imagePic
+        }
+      }) 
+      
+    }
 
     const handleSubmit = ()=> {
         e.preventDefault(); 
@@ -21,20 +51,45 @@ const Login = () => {
   return (
     <section id="signup">
         <div className="mx-auto container p-4">
-                <div className="bg-white p-2 w-full max-w-md mx-auto py-4">
-                    <div className="w-20 h-20 mx-auto">
-                        <PiUserCircleThin size={100} />
-
+                <div className="bg-white w-full max-w-md mx-auto">
+                
+                    <div className="w-32 h-30 mx-auto relative overflow-hidden rounded-full">
+                        <div className="">
+                        {formData.profilePic ? (
+                          <img 
+                              src={formData.profilePic} 
+                              onClick={()=> uploadRef.current.click()}
+                              alt="profilePic" 
+                              // name="profilePic"
+                              className="mt-2 rounded-full w-20 h-20 object-cover cursor-pointer" />
+                        ) : (
+                          <PiUserCircleThin size={125} name="ProfilePic"/>
+                        ) 
+                        }
+                        </div> 
+                        <form>
+                            <div hidden={formData.profilePic} onClick={()=> uploadRef.current.click()} className="text-sm bg-blue-500 text-slate-100 p-2 scale-x-50 text-center absolute bottom-0 w-full cursor-pointer">
+                              Upload pic
+                            </div>
+                            <input 
+                                type="file" 
+                                ref={uploadRef} 
+                                hidden 
+                                accept="image/*"                                
+                                onChange={handleUploadPic}/>                        
+                        </form>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-4">
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
                         <div className="">
                             <label htmlFor="Username">Username:</label>
                             <div className="bg-slate-100 p-2">
                               <input onChange={handleChange} 
-                                    id="username" 
-                                    type="username" 
+                                    name="username"
+                                    value={formData.username} 
+                                    type="text" 
                                     placeholder="Enter username" 
+                                    required
                                     className="w-fll h-full outline-none bg-transparent"/>
                             </div>
                         </div>
@@ -42,9 +97,11 @@ const Login = () => {
                             <label htmlFor="email">Email:</label>
                             <div className="bg-slate-100 p-2">
                               <input onChange={handleChange} 
-                                    id="email" 
+                                    name="email" 
+                                    value={formData.email}
                                     type="email" 
                                     placeholder="Enter email" 
+                                    required
                                     className="w-fll h-full outline-none bg-transparent"/>
                             </div>
                         </div>
@@ -52,9 +109,12 @@ const Login = () => {
                         <div className="">
                             <label htmlFor="password">Password:</label>
                             <div className="bg-slate-100 p-2 flex justify-between">
-                               <input type={showPassword ? "text" : "password"} 
+                               <input type={showPassword ? "text" : "password"}
                                       placeholder="Enter password" 
-                                      className="w-fll h-full outline-none bg-transparent" id="password"  
+                                      className="w-fll h-full outline-none bg-transparent" 
+                                      name="password"
+                                      required
+                                      value={formData.password}  
                                       onChange={handleChange}/>
 
                                <div className="cursor-pointer text-xl">
@@ -71,7 +131,11 @@ const Login = () => {
                               <div className="bg-slate-100 p-2 flex justify-between">
                                  <input type={showConfirmPassword ? "text" : "password"}
                                         placeholder="Enter password"
-                                        className="w-fll h-full outline-none bg-transparent" id="confirm-password"
+                                        className="w-fll h-full outline-none bg-transparent" 
+                                        name="confirmPassword"
+                                        required
+                                        value={formData.confirmPassword}
+                                        onChange={handleChange}
                                         />
                                  <div className="cursor-pointer text-xl">
                                    <span onClick={()=> setShowConfirmPassword((prev)=> !prev)}>
@@ -85,9 +149,9 @@ const Login = () => {
                             
                         </div>
 
-                        <button type="submit" className="p-2 w-full bg-red-700 hover:bg-red-800 cursor-pointer text-white text-md rounded-lg ">Login</button>
+                        <button type="submit" className="p-2 w-full bg-blue-500 hover:bg-blue-700 cursor-pointer text-white text-md rounded-lg ">Sign Up</button>
                     </form>
-                    <p className="p-4">Have account? <Link to='/signup' className="cursor-pointer text-red-700 hover:text-red-800 hover:underline">Login</Link></p>
+                    <p className="p-4">Already have account? <Link to='/login' className="cursor-pointer text-blue-500 hover:text-blue-700 hover:underline">Login</Link></p>
                 </div>
         </div>
 
