@@ -6,11 +6,14 @@ import Footer from './components/Footer'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
 import SignUp from './pages/SignUp'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const App = () => {
   return (
-   <BrowserRouter>
+  <BrowserRouter>
+      <ToastContainer />
       <Header />
     <main className='min-h-[calc(100vh-200px)]'>
       <Routes>

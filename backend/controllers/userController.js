@@ -4,7 +4,6 @@ import bcryptjs from 'bcryptjs';
 export const userSignUp = async (req, res,) => {
     try {
          const {username, email, password} = req.body
-         console.log('req.body:', req.body);
 
          if(!username){
             throw new Error("Please enter a username")
@@ -15,6 +14,11 @@ export const userSignUp = async (req, res,) => {
          if(!password){
             throw new Error("Please enter a password")
          }
+         const userExist = await UserModel.findOne({email})
+         if(userExist){
+            throw new Error("User already exists")
+         }
+
          const hashedPassword = bcryptjs.hashSync(password, 10)
 
          const userData = new UserModel({
@@ -31,13 +35,12 @@ export const userSignUp = async (req, res,) => {
             error: false,
             message: 'User created successfully'
          })
-
-
-    } catch (error) {
+    } catch (err) {
+        console.log('err',err.message);
         res.json({
-            message: error,
+            message: err.message || err ,
             error: true,
-            success: false
-        })
+            success: false,
+        });
     }
 }

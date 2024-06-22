@@ -1,13 +1,17 @@
 import { useRef, useState } from "react";
 import { PiUserCircleThin } from "react-icons/pi";
 import { TbEyeCheck, TbEyeClosed,  } from "react-icons/tb"; 
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import imageToBase64 from "../utils/imageToBase64";
+import summaryApi from "../common/index.js";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
  
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const uploadRef = useRef()
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
       username: '',
@@ -43,8 +47,44 @@ const Login = () => {
       
     }
 
-    const handleSubmit = ()=> {
+    const handleSubmit = async (e) => {
         e.preventDefault(); 
+        if(formData.password !== formData.confirmPassword) {
+          toast.error('Please check both password inputs')
+          // console.log('Please check password and confirm password')
+          return
+    }
+        // const res = await fetch('/api/signup', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify(formData),
+        // });
+        // const data = await res.json()
+        // console.log(data)
+       
+          try {
+            
+            const res = await fetch(summaryApi.signUP.url, {
+             method: summaryApi.signUP.method,
+             headers: {
+               'content-type': 'application/json'
+             },
+             body: JSON.stringify(formData)
+            })
+            const data = await res.json()
+            if(data.success){
+              toast.success(data.message) 
+              navigate('/login')  
+            }
+            if(data.error){
+              toast.error(data.message)
+            }
+            
+          } catch (error) {
+            console.log(error.message)
+          }
     }
 
 
