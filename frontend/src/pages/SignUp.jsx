@@ -29,7 +29,7 @@ const Login = () => {
           [name] : value
         }
        });
-       console.log(formData)
+      
     };
 
 

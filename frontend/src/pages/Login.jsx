@@ -1,19 +1,48 @@
 import { useState } from "react";
 import { PiUserCircleThin } from "react-icons/pi";
 import { TbEyeCheck, TbEyeClosed,  } from "react-icons/tb"; 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import summaryApi from "../common";
+import { toast } from "react-toastify";
+
  
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({});
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.id]: e.target.value.trim()});
         
     };
 
-    const handleSubmit = (e)=> {
-        e.preventDefault(); 
+    const handleSubmit = async (e)=> {
+        e.preventDefault();
+        
+        try {
+            
+            const res = await fetch(summaryApi.signIN.url, {
+             method: summaryApi.signIN.method,
+             credentials: 'include',
+             headers: {
+               'content-type': 'application/json'
+             },
+             body: JSON.stringify(formData)
+            })
+            const data = await res.json()
+            if(data.success){
+              toast.success(data.message) 
+              navigate('/')  
+            }
+            if(data.error){
+              toast.error(data.message)
+            }
+            
+          } catch (error) {
+            console.log(error.message)
+          }
+        
     }
 
 

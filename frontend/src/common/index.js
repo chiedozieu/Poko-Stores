@@ -4,10 +4,19 @@ const summaryApi = {
     signUP : {
         url: `${backendDomain}/api/signup`,
         method: 'POST' 
+    },
+    signIN : {
+        url: `${backendDomain}/api/signin`,
+        method: 'POST' 
     }
+
 }
-
-export default summaryApi;
-
 // summaryApi.signUP.url
 // summaryApi.signUP.method
+
+
+
+
+
+
+export default summaryApi;
