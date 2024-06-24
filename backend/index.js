@@ -4,24 +4,28 @@ import dotenv from 'dotenv';
 import connectDB from './config/Db.js';
 import router from './routes/userRoute.js';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 
-dotenv.config() 
-
+dotenv.config();
 
 const app = express();
 connectDB();
-app.use(cookieParser())
+
+// Middleware
+app.use(cookieParser());
 app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true
-}))
-app.use(express.json());
-app.use('/api', router)
+}));
 
+// Configure body-parser to handle large payloads
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
+app.use('/api', router);
 
-const PORT = 8080 || process.env.PORT 
+const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, ()=> {
-    console.log(`Server is listening on port:${PORT}`)
-})
+app.listen(PORT, () => {
+    console.log(`Server is listening on port: ${PORT}`);
+});

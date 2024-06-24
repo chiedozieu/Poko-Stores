@@ -1,10 +1,9 @@
 import { useRef, useState } from "react";
 import { PiUserCircleThin } from "react-icons/pi";
 import { TbEyeCheck, TbEyeClosed,  } from "react-icons/tb"; 
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import imageToBase64 from "../utils/imageToBase64";
 import summaryApi from "../common/index.js";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
  
 const Login = () => {
