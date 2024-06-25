@@ -12,6 +12,7 @@ import summaryApi from './common'
 import Context from './context/index.js'
 import { setUserDetails } from './store/userSlice.js'
 import {useDispatch} from 'react-redux'
+import AdminPanel from './pages/AdminPanel.jsx'
 
 
 
@@ -49,6 +50,7 @@ useEffect(() => {
         <Route path='/login' element={<Login />}/>
         <Route path='/forgot-password' element={<ForgotPassword />}/>
         <Route path='/signup' element={<SignUp />}/>
+        <Route path='/admin-panel' element={<AdminPanel />}/>
       </Routes>
     </main>
      <Footer />

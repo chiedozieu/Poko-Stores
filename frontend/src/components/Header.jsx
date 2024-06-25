@@ -8,12 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import summaryApi from "../common";
 import { setUserDetails } from "../store/userSlice";
+import { useState } from "react";
  
 
 
 const Header = () => {
   const user = useSelector((state) => (state.user?.user))
   const dispatch = useDispatch()
+  const [showMenu, setShowMenu] = useState(false)
 
   const handleLogOut = async () => {
     const res = await fetch(summaryApi.userLogOUT.url, {
@@ -52,14 +54,24 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-7  ">
-            <div className=" cursor-pointer text-3xl">
-            { user ? (
-              <img src={user.profilePic} alt={user.username} className="h-10 w-10 rounded-full"/>
-            ) : (
-
-            <PiUser />
-            )}
-            </div>
+            <div className="relative  flex justify-center" onClick={()=> setShowMenu(prev => !prev)}>
+              <div className=" cursor-pointer text-3xl">
+              { user?.profilePic ? (
+                <img src={user.profilePic} alt={user.username} className="h-10 w-10 rounded-full"/>
+              ) : (
+              <PiUser />
+              )} 
+              </div>
+              {
+                showMenu && (
+              <div className="absolute bg-white bottom-0 top-11 h-fit p-2  shadow-lg rounded-md ">
+                <nav>
+                  <Link to='/admin-panel' className="whitespace-nowrap hover:bg-slate-100 p-2">Admin Panel</Link>
+                </nav>
+              </div>
+                )
+              }
+            </div> 
             <div className="text-3xl relative">
               <span className="flex">
                 <BsCart4 />
