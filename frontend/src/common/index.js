@@ -8,11 +8,18 @@ const summaryApi = {
     signIN : {
         url: `${backendDomain}/api/signin`,
         method: 'POST' 
+    },
+    currentUser: {
+        url: `${backendDomain}/api/user-details`,
+        method: 'GET' 
     }
 
 }
 // summaryApi.signUP.url
 // summaryApi.signUP.method
+
+// summaryApi.currentUser.url
+// summaryApi.currentUser.method
 
 
 

@@ -4,9 +4,13 @@ import { PiUser } from "react-icons/pi";
 import { BsCart4 } from "react-icons/bs";
 import TopHeader from "./TopHeader";
 import { Link } from "react-router-dom";
+ 
 
 
 const Header = () => {
+  const user = useSelector((state) => (state.user?.user))
+
+  console.log('userAll', user)
   return (
     <>
     <div className="sticky">
@@ -29,7 +33,12 @@ const Header = () => {
 
           <div className="flex items-center gap-7  ">
             <div className=" cursor-pointer text-3xl">
+            { user ? (
+              <img src={user.profilePic} alt={user.username} className="h-10 w-10 rounded-full"/>
+            ) : (
+
             <PiUser />
+            )}
             </div>
             <div className="text-3xl relative">
               <span className="flex">

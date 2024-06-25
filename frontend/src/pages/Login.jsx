@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { PiUserCircleThin } from "react-icons/pi";
 import { TbEyeCheck, TbEyeClosed,  } from "react-icons/tb"; 
 import { Link, useNavigate } from "react-router-dom";
 import summaryApi from "../common";
 import { toast } from "react-toastify";
+import Context from "../context";
 
  
 const Login = () => {
@@ -11,6 +12,10 @@ const Login = () => {
     const [formData, setFormData] = useState({});
 
     const navigate = useNavigate();
+    const {FetchUserDetails} = useContext(Context)
+
+
+    // console.log('generalContext:', generalContext); 
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.id]: e.target.value.trim()});
@@ -34,6 +39,7 @@ const Login = () => {
             if(data.success){
               toast.success(data.message) 
               navigate('/')  
+              FetchUserDetails() 
             }
             if(data.error){
               toast.error(data.message)

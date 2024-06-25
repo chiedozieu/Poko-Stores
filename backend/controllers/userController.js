@@ -2,10 +2,12 @@ import UserModel from "../models/userModel.js"
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+// 1
+
 
 export const userSignUp = async (req, res,) => {
     try {
-         const {username, email, password} = req.body
+         const {username, email, password, profilePic} = req.body
 
          if(!username){
             throw new Error("Please enter a username")
@@ -27,7 +29,8 @@ export const userSignUp = async (req, res,) => {
             username,
             email,
             role: 'GENERAL',
-            password: hashedPassword
+            password: hashedPassword,
+            profilePic,
          })
 
          const savedUser = await userData.save()
@@ -47,6 +50,8 @@ export const userSignUp = async (req, res,) => {
         });
     }
 }
+
+// 2
 
 export const userSignIn = async (req, res) => {
    const {email, password} = req.body;
@@ -90,4 +95,29 @@ res.cookie("token", token, tokenOptions).json({
 
 
 
+}
+ 
+// 3
+
+export const userDetails = async (req, res,) => {
+   try {
+      // console.log('userId', req.userId)
+       const user = await UserModel.findById(req.userId);
+       res.status(200).json({
+         data: user,
+         success: true,
+         error:false,
+         message: 'User details'
+       })
+      
+
+
+   } catch (error) { 
+       
+       res.status(400).json({
+           message: error.message || error ,
+           error: true,
+           success: false,
+       });
+   }
 }

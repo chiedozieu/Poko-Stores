@@ -43,7 +43,7 @@ const Login = () => {
           profilePic: imagePic
         }
       }) 
-      
+      console.log('this is image ', profilePic)
     }
 
     const handleSubmit = async (e) => {
@@ -106,7 +106,7 @@ const Login = () => {
                         ) 
                         }
                         </div> 
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div hidden={formData.profilePic} onClick={()=> uploadRef.current.click()} className="text-sm bg-blue-500 text-slate-100 p-2 scale-x-50 text-center absolute bottom-0 w-full cursor-pointer">
                               Upload pic
                             </div>
