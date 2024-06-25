@@ -9,6 +9,17 @@ export const userSignUp = async (req, res,) => {
     try {
          const {username, email, password, profilePic} = req.body
 
+         if(username.length < 5){
+
+            throw new Error('Username must be at least 5 characters')
+         }
+         
+         if(password.length < 5){
+
+            throw new Error('Password must be at least 5 characters')
+         }
+         
+
          if(!username){
             throw new Error("Please enter a username")
          }
@@ -109,8 +120,6 @@ export const userDetails = async (req, res,) => {
          error:false,
          message: 'User details'
        })
-      
-
 
    } catch (error) { 
        
@@ -121,3 +130,24 @@ export const userDetails = async (req, res,) => {
        });
    }
 }
+
+// 4
+
+export const userLogOut = async (req, res) => {
+   try {
+      res.clearCookie('token');
+
+      res.json({
+         message: 'User logged out',
+         success: true,
+         error: false,
+      })
+   } catch (error) {
+      res.json({
+         message: error.message || error ,
+         error: true,
+         success: false,
+     });  
+   }
+
+};

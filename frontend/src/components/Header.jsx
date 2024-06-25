@@ -1,18 +1,38 @@
-import { GrSearch } from "react-icons/gr";
+import { GrSearch, GrToast } from "react-icons/gr";
 import Logo from "./Logo";
 import { PiUser } from "react-icons/pi";
 import { BsCart4 } from "react-icons/bs";
 import TopHeader from "./TopHeader";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+import summaryApi from "../common";
+import { setUserDetails } from "../store/userSlice";
  
 
 
 const Header = () => {
   const user = useSelector((state) => (state.user?.user))
+  const dispatch = useDispatch()
 
-  console.log('userAll', user)
+  const handleLogOut = async () => {
+    const res = await fetch(summaryApi.userLogOUT.url, {
+      method: summaryApi.userLogOUT.method, 
+      credentials: 'include'
+    })
+    const data = await res.json()
+ 
+    if(data.success){
+     toast.success(data.message)
+     dispatch( setUserDetails(null))
+    }
+
+    if(data.error){
+      toast.error(data.message)
+     }
+  }
   return (
-    <>
+    <> 
     <div className="sticky">
       <TopHeader />
     </div>
@@ -49,9 +69,16 @@ const Header = () => {
              </div>
             </div>
             <div className="">
-              <Link to={'/login'} className="px-4 py-2 bg-red-700 hover:bg-red-800 rounded-md text-white cursor-pointer ">
+            {
+              user?._id  ? (
+                <button onClick={handleLogOut} className="px-4 py-2 bg-red-700 hover:bg-red-800 rounded-md text-white cursor-pointer">Logout</button>
+              ) : (
+
+              <Link to={'/login'} className="px-4 py-2 bg-red-700 hover:bg-red-800 rounded-md text-white cursor-pointer">
                 Login
               </Link>
+              )
+            }
             </div>
           </div>
 
