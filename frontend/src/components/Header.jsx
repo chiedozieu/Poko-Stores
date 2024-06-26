@@ -26,7 +26,7 @@ const Header = () => {
  
     if(data.success){
      toast.success(data.message)
-     dispatch( setUserDetails(null))
+     dispatch(setUserDetails(null))
     }
 
     if(data.error){
@@ -40,66 +40,82 @@ const Header = () => {
     </div>
     <header className="h-[6rem] shadow-md bg-white">
      
-      <div className=" h-full container mx-auto flex items-center px-4 justify-between">
-          <Link to={'/'} className="cursor-pointer hover:scale-110 transition">
-            <Logo />
-          </Link>
-     
+   <div className=" h-full container mx-auto flex items-center px-4 justify-between gap-4">
+              {/* Logo */}
+        <Link to={'/'} className="cursor-pointer hover:scale-110 transition font-extrabold text-5xl text-slate-500 lg:flex-2">
+        Poko
+          {/* <Logo /> */}
+        </Link>
         
-         <div className="hidden md:inline-flex items-center w-full justify-between max-w-md h-12 border border-red-700 rounded-full focus-within:shadow pl-2">
-            <input type="text" placeholder="Search products" className=" w-full outline-none "/>
-            <div>
-              <GrSearch  className="bg-red-700 h-full text-lg min-w-[50px] p-2 rounded-r-full text-white flex justify-center items-center"/>
+                {/* Search bar */}
+
+        <form className="max-w-lg mx-auto hidden md:inline flex-1">   
+            <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div className="relative">
+                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Search products ..." required />
+                <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Search</button>
             </div>
+        </form>
+                               {/* Search bar end */}
+            {/* <div className="hidden md:inline-flex items-center w-full justify-between max-w-md h-12 border border-red-700 rounded-full focus-within:shadow pl-2">
+                <input type="text" placeholder="Search products" className=" w-full outline-none "/>
+                <div>
+                  <GrSearch  className="bg-red-700 h-full text-lg min-w-[50px] p-2 rounded-r-full text-white flex justify-center items-center"/>
+                </div>
+              </div> */}
+
+              <div className="flex items-center gap-7 lg:flex-2 ">
+                <div className="relative  flex justify-center" onClick={()=> setShowMenu(prev => !prev)}>
+                  <div className=" cursor-pointer text-3xl">
+                  { user?.profilePic ? (
+                    <img src={user.profilePic} alt={user.username} className="h-10 w-10 rounded-full"/>
+                  ) : (
+                  <PiUser /> 
+                  )} 
+                  </div>
+                  {
+                    showMenu && (
+                  <div className="absolute bg-white bottom-0 top-11 h-fit p-2 hidden md:block  shadow-lg rounded-md ">
+                    <nav>
+                      <Link to='/admin-panel' className="whitespace-nowrap hover:bg-slate-100 p-2" >Admin Panel</Link>
+                    </nav>
+                  </div>
+                    )
+                  }
+                </div> 
+                <div className="text-3xl relative">
+                  <span className="flex">
+                    <BsCart4 />
+                  </span>
+                <div className="bg-red-700 text-white w-5 h-5 p-1 flex items-center justify-center rounded-full absolute -top-1 -right-2 ">
+                  <p className="text-sm">0</p>
+                </div>
+                </div>
+                <div className="">
+                {
+                  user?._id  ? (
+                    <button onClick={handleLogOut} className="px-4 py-2 bg-red-700 hover:bg-red-800 rounded-md text-white cursor-pointer">Logout</button>
+                  ) : (
+
+                  <Link to={'/login'} className="px-4 py-2 bg-red-700 hover:bg-red-800 rounded-md text-white cursor-pointer">
+                    Login
+                  </Link>
+                  )
+                }
+                </div>
+              </div>
+
           </div>
 
-          <div className="flex items-center gap-7  ">
-            <div className="relative  flex justify-center" onClick={()=> setShowMenu(prev => !prev)}>
-              <div className=" cursor-pointer text-3xl">
-              { user?.profilePic ? (
-                <img src={user.profilePic} alt={user.username} className="h-10 w-10 rounded-full"/>
-              ) : (
-              <PiUser />
-              )} 
-              </div>
-              {
-                showMenu && (
-              <div className="absolute bg-white bottom-0 top-11 h-fit p-2  shadow-lg rounded-md ">
-                <nav>
-                  <Link to='/admin-panel' className="whitespace-nowrap hover:bg-slate-100 p-2">Admin Panel</Link>
-                </nav>
-              </div>
-                )
-              }
-            </div> 
-            <div className="text-3xl relative">
-              <span className="flex">
-                <BsCart4 />
-              </span>
-             <div className="bg-red-700 text-white w-5 h-5 p-1 flex items-center justify-center rounded-full absolute -top-1 -right-2 ">
-               <p className="text-sm">0</p>
-             </div>
-            </div>
-            <div className="">
-            {
-              user?._id  ? (
-                <button onClick={handleLogOut} className="px-4 py-2 bg-red-700 hover:bg-red-800 rounded-md text-white cursor-pointer">Logout</button>
-              ) : (
+        </header>
 
-              <Link to={'/login'} className="px-4 py-2 bg-red-700 hover:bg-red-800 rounded-md text-white cursor-pointer">
-                Login
-              </Link>
-              )
-            }
-            </div>
-          </div>
-
-       </div>
-
-    </header>
-
-    </>
-  )
+        </>
+      )
 }
 
 export default Header

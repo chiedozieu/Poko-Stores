@@ -11,3 +11,17 @@ body {
 .custom-shadow {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5)
 }
+
+.user-table {
+    background-color: white
+    
+}
+.user-table th{
+    border-width: 1px;  
+}
+.user-table td{
+    border-width: 1px; 
+    text-align: center
+    
+}
+
