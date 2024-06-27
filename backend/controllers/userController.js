@@ -175,3 +175,37 @@ export const AllUsers = async (req, res) => {
      }); 
    }
 } 
+
+// 6
+
+export const updateUser = async (req, res) => {
+   try {
+      const sessionUser = req.userId
+      const { userId, email, username, role } = req.body
+
+      const payload = {
+         ...(email && {email: email}),
+         ...(username && {username: username}),
+         ...(role && {role: role})
+      }
+      const user = await UserModel.findById(sessionUser)
+
+      console.log('user.role', user.role)
+
+      const updateUser = await UserModel.findByIdAndUpdate(userId, payload)
+
+      res.json({
+         data: updateUser, 
+         message: 'user updated',
+         success: true,
+         error: false
+      })
+      
+   } catch (error) {
+      res.status(400).json({
+         message: error.message || error ,
+         error: true,
+         success: false,
+     }); 
+   }
+}

@@ -1,5 +1,5 @@
 import express from 'express';
-import { AllUsers, userDetails, userLogOut, userSignIn, userSignUp } from '../controllers/userController.js';
+import { AllUsers, updateUser, userDetails, userLogOut, userSignIn, userSignUp } from '../controllers/userController.js';
 import { authToken } from '../middleware/authToken.js'
 
 
@@ -13,6 +13,7 @@ router.get('/logout', userLogOut)
 // Admin route
 
 router.get('/all-users', authToken, AllUsers)
+router.post('/update-user', authToken, updateUser)
 
 
 
