@@ -1,4 +1,3 @@
-import { GrSearch, GrToast } from "react-icons/gr";
 import Logo from "./Logo";
 import { PiUser } from "react-icons/pi";
 import { BsCart4 } from "react-icons/bs";
@@ -9,6 +8,7 @@ import { toast } from 'react-toastify';
 import summaryApi from "../common";
 import { setUserDetails } from "../store/userSlice";
 import { useState } from "react";
+import ROLE from "../common/role";
  
 
 
@@ -71,22 +71,32 @@ const Header = () => {
 
               <div className="flex items-center gap-7 lg:flex-2 ">
                 <div className="relative  flex justify-center" onClick={()=> setShowMenu(prev => !prev)}>
+                {
+                  user?._id && (
+                    
                   <div className=" cursor-pointer text-3xl">
-                  { user?.profilePic ? (
-                    <img src={user.profilePic} alt={user.username} className="h-10 w-10 rounded-full"/>
-                  ) : (
-                  <PiUser /> 
-                  )} 
+                      { user?.profilePic ? (
+                        <img src={user.profilePic} alt={user.username} className="h-10 w-10 rounded-full"/>
+                      ) : (
+                      <PiUser /> 
+                      )} 
                   </div>
-                  {
-                    showMenu && (
-                  <div className="absolute bg-white bottom-0 top-11 h-fit p-2 hidden md:block  shadow-lg rounded-md ">
-                    <nav>
-                      <Link to='/admin-panel' className="whitespace-nowrap hover:bg-slate-100 p-2" >Admin Panel</Link>
-                    </nav>
-                  </div>
-                    )
-                  }
+                  )
+                }
+                      {
+                        showMenu && (
+                      <div className="absolute bg-white bottom-0 top-11 h-fit p-2 hidden md:block  shadow-lg rounded-md ">
+                        <nav>
+                        {
+                          user?.role === ROLE.ADMIN && (
+
+                          <Link to='/admin-panel/all-products' className="whitespace-nowrap hover:bg-slate-100 p-2" >Admin Panel</Link>
+                          )
+                        } 
+                        </nav>
+                      </div>
+                        )
+                      }
                 </div> 
                 <div className="text-3xl relative">
                   <span className="flex">
