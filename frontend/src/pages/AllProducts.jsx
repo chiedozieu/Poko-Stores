@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UploadProduct from "../components/UploadProduct";
+import UploadProduct from '../components/UploadProduct.jsx';
 
 
 
