@@ -25,6 +25,11 @@ const summaryApi = {
         url: `${backendDomain}/api/update-user`,
         method: 'POST' 
     },
+    uploadProduct: {
+        url: `${backendDomain}/api/upload-product`,
+        method: 'POST' 
+    },
+
 
 }
 // summaryApi.signUP.url
@@ -41,6 +46,9 @@ const summaryApi = {
 
 // summaryApi.updateUser.url
 // summaryApi.updateUser.method
+
+// summaryApi.uploadProduct.url
+// summaryApi.uploadProduct.method
 
 
 

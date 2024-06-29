@@ -1,6 +1,7 @@
 import express from 'express';
 import { AllUsers, updateUser, userDetails, userLogOut, userSignIn, userSignUp } from '../controllers/userController.js';
 import { authToken } from '../middleware/authToken.js'
+import { uploadProduct } from '../controllers/productsController.js';
 
 
 const router = express.Router();
@@ -14,6 +15,11 @@ router.get('/logout', userLogOut)
 
 router.get('/all-users', authToken, AllUsers)
 router.post('/update-user', authToken, updateUser)
+
+
+// product routes
+
+router.post('/upload-product', authToken, uploadProduct)
 
 
 

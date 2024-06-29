@@ -4,6 +4,9 @@ import productCategory from "../utils/productCategory";
 import { PiUploadSimpleThin } from "react-icons/pi";
 import uploadImage from "../utils/uploadImage.js";
 import DisplayImage from "./DisplayImage.jsx";
+import { MdDelete } from "react-icons/md";
+import summaryApi from "../common/index.js";
+import {toast} from 'react-toastify'
 
 const UploadAllProduct = ({onClose}) => {
     const [formData, setFormData] = useState({
@@ -11,15 +14,21 @@ const UploadAllProduct = ({onClose}) => {
         brandName: '',
         category: '',
         productImage: [],
-        Description: '',
+        description: '',
         price: '',
-        selling: '',
+        sellingprice: '',
     })
     const [openFullScreenImage, setOpenFullScreenImage] = useState(false)
     const [fullScreenImage, setFullScreenImage] = useState('')
 
     const handleOnChange = (e) => {
-        
+        const {name , value} = e.target
+        setFormData((prev) => {
+            return {
+                ...prev,
+                 [name] : value
+            }  
+        })
     };
 
     const handUploadAllProduct = async (e) => {
@@ -33,8 +42,40 @@ const UploadAllProduct = ({onClose}) => {
                 productImage: [...prev.productImage, uploadImageCloudinary.url]
             }  
         })
-
     }
+
+    const handleDeleteProductImage = async (index) => {
+        console.log('index', index )
+        const newProductImage = [...formData.productImage]; // copy of existing product image
+        newProductImage.splice(index, 1)
+
+        setFormData((prev) => {
+            return {
+                ...prev,
+                productImage: [...newProductImage]         
+            }  
+        })  
+    };
+
+    const handleSubmit = async (e) =>  {
+        e.preventDefault();
+       
+        const response = await fetch(summaryApi.uploadProduct.url, {
+            method:summaryApi.uploadProduct.method,
+            credentials: 'include',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify(formData)
+        })
+        const data = await response.json(); 
+
+        if(data.success){
+            toast.success(data?.message)
+            onClose()
+        }
+        if(data.error){
+            toast.error(data?.message)
+        }
+    }  
 
     return (
         <div className="fixed bg-slate-200 bg-opacity-55 w-full h-full top-0 bottom-0 right-0 left-0 flex justify-center items-center">
@@ -48,7 +89,7 @@ const UploadAllProduct = ({onClose}) => {
                         </div> 
                 </div>
 
-                <form className="grid p-4 gap-2 overflow-y-scroll h-full pb-5">
+                <form className="grid p-4 gap-2 overflow-y-scroll h-full pb-5" onSubmit={handleSubmit}>
                     <label htmlFor="productName">Product Name:</label>
                     <input 
                     type="text" id="productName" 
@@ -56,7 +97,8 @@ const UploadAllProduct = ({onClose}) => {
                     name="productName"
                     onChange={handleOnChange} 
                     value={formData.productName}
-                    className="p-1 bg-slate-100 rounder"
+                    className="p-2 bg-slate-100 rounder"
+                    required
                     />
 
                     <label htmlFor="brandName" className="mt-3">Brand Name:</label>
@@ -66,11 +108,13 @@ const UploadAllProduct = ({onClose}) => {
                     name="brandName"
                     onChange={handleOnChange} 
                     value={formData.brandName}
-                    className="p-1 bg-slate-100 rounder"
+                    className="p-2 bg-slate-100 rounder"
+                    required
                     />
 
                     <label htmlFor="category " className="mt-3">Category:</label>
-                    <select  value={formData.category} className="p-1 bg-slate-100 rounder">
+                    <select required value={formData.category} name="category" className="p-2 bg-slate-100 rounder" onChange={handleOnChange}>
+                    <option value= {''}>select Category</option>
                          {
                             productCategory.map((pCat,index)=> {
                                 return (
@@ -100,15 +144,19 @@ const UploadAllProduct = ({onClose}) => {
 
                                     formData.productImage.map((pImage, index) => {
                                         return (
-                                        <img 
-                                            src={pImage} alt="pImage" 
-                                            onClick={()=> {
-                                                setOpenFullScreenImage(true)
-                                                setFullScreenImage(pImage)
-                                            }}
-                                            width={80} height={80} 
-                                            
-                                            className="bg-slate-100 border cursor-pointer" />
+                                        <div className="relative group">
+                                            <img
+                                                src={pImage} alt={pImage}
+                                                onClick={()=> {
+                                                    setOpenFullScreenImage(true)
+                                                    setFullScreenImage(pImage)
+                                                }}
+                                                width={80} height={80}
+                                                className="bg-slate-100 border cursor-pointer" />
+                                            <div className="absolute bottom-0 right-0 bg-red-700 text-white rounded-full cursor-pointer p-1 text-xs hidden group-hover:block" onClick={()=> handleDeleteProductImage(index)}>
+                                                <MdDelete  className=""/>
+                                            </div>
+                                        </div>
  
                                         )
                                     })
@@ -120,18 +168,45 @@ const UploadAllProduct = ({onClose}) => {
                         )
                     }
                     </div>
+                    <label htmlFor="price">Price:</label>
+                    <input 
+                        type="number" id="price" 
+                        placeholder="Enter price "
+                        name="price"
+                        onChange={handleOnChange} 
+                        value={formData.price}
+                        required
+                        className="p-2 bg-slate-100 rounder"
+                    />
+                    <label htmlFor="sellingprice">Selling Price:</label>
+                    <input 
+                        type="number" id="sellingprice" 
+                        placeholder="Enter selling price "
+                        name="sellingprice"
+                        onChange={handleOnChange} 
+                        value={formData.sellingprice}
+                        required
+                        className="p-2 bg-slate-100 rounder"
+                    />
+
+                    <label htmlFor="description">Description:</label>
+                    <textarea name="description" rows={3} className="bg-slate-100 h-28 border resize-none p-2" placeholder="Enter product description" onChange={handleOnChange}>
+
+                    </textarea>
+
+                     
                     <button className='text-center bg-red-700 px-3 py-2 mb-10 hover:bg-red-800 cursor-pointer rounded-md text-white'>Upload Product</button>
 
                 </form>
             
             </div> 
-
-
             {/* Display Image full */}
             {
                 openFullScreenImage &&
             <DisplayImage onClose={()=> setOpenFullScreenImage(false)} imgUrl={fullScreenImage} />
             }
+
+
         </div>
     )
 }
