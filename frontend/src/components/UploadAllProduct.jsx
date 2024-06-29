@@ -5,7 +5,7 @@ import { PiUploadSimpleThin } from "react-icons/pi";
 import uploadImage from "../utils/uploadImage.js";
 import DisplayImage from "./DisplayImage.jsx";
 
-const UploadProduct = ({onClose}) => {
+const UploadAllProduct = ({onClose}) => {
     const [formData, setFormData] = useState({
         productName: '',
         brandName: '',
@@ -22,7 +22,7 @@ const UploadProduct = ({onClose}) => {
         
     };
 
-    const handUploadProduct = async (e) => {
+    const handUploadAllProduct = async (e) => {
         const file = e.target.files[0];
         
         const uploadImageCloudinary = await uploadImage(file)
@@ -88,7 +88,7 @@ const UploadProduct = ({onClose}) => {
                                         <PiUploadSimpleThin />
                                     </span>
                                     <p className="text-sm">Upload Product Image</p>
-                                    <input type="file" id="uploadImageInput" hidden onChange={handUploadProduct}/>
+                                    <input type="file" id="uploadImageInput" hidden onChange={handUploadAllProduct}/>
                                 </div>
                         </div>
                     </label>
@@ -135,4 +135,4 @@ const UploadProduct = ({onClose}) => {
         </div>
     )
 }
-export default UploadProduct  
+export default UploadAllProduct  
