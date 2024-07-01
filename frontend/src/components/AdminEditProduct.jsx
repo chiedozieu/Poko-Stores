@@ -14,6 +14,8 @@
 
  const AdminEditProduct = ({onClose, productEditData}) => {
   const [formData, setFormData] = useState({
+
+    ...productEditData,
     productName: productEditData?.productName,
     brandName: productEditData?.brandName,
     category: productEditData?.category,
@@ -64,13 +66,15 @@ const handleDeleteProductImage = async (index) => {
 const handleSubmit = async (e) =>  {
     e.preventDefault();
    
-    const response = await fetch(summaryApi.uploadProduct.url, {
-        method:summaryApi.uploadProduct.method,
+    const response = await fetch(summaryApi.updateProduct.url, {
+        method:summaryApi.updateProduct.method,
         credentials: 'include',
         headers: { 'content-type': 'application/json'},
         body: JSON.stringify(formData)
     })
     const data = await response.json(); 
+    
+    console.log('Response Data:', data);  // Log response data
 
     if(data.success){
         toast.success(data?.message)
@@ -148,7 +152,7 @@ const handleSubmit = async (e) =>  {
 
                             formData.productImage.map((pImage, index) => {
                                 return (
-                                <div className="relative group">
+                                <div className="relative group" key={index}>
                                     <img
                                         src={pImage} alt={pImage}
                                         onClick={()=> {
@@ -200,12 +204,11 @@ const handleSubmit = async (e) =>  {
             value={formData.description} 
             onChange={handleOnChange}
             >
-            
 
             </textarea>
 
              
-            <button className='text-center bg-red-700 px-3 py-2 mb-10 hover:bg-red-800 cursor-pointer rounded-md text-white'>Edit Product</button>
+            <button className='text-center bg-red-700 px-3 py-2 mb-10 hover:bg-red-800 cursor-pointer rounded-md text-white'>Update Product</button>
 
         </form>
     
@@ -213,7 +216,7 @@ const handleSubmit = async (e) =>  {
     {/* Display Image full */}
     {
         openFullScreenImage &&
-    <DisplayImage onClose={()=> setOpenFullScreenImage(false)} imgUrl={fullScreenImage} />
+    <DisplayImage onClose={()=> setOpenFullScreenImage(false)} imgUrl={fullScreenImage} /> 
     }
 
 

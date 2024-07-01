@@ -15,7 +15,7 @@ const AdminProductCard = ({productData}) => {
         </div> 
           {
             editProduct && 
-             (<AdminEditProduct productEditData={productData} onClose={ ()=> setEditProduct(false )}/>)
+             (<AdminEditProduct productEditData={productData} onClose={()=> setEditProduct(false )}/>)
           }
    </div>
   )

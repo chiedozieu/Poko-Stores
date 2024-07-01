@@ -146,7 +146,7 @@ const UploadAllProduct = ({onClose}) => {
 
                                     formData.productImage.map((pImage, index) => {
                                         return (
-                                        <div className="relative group">
+                                        <div className="relative group" key={index+productImage}>
                                             <img
                                                 src={pImage} alt={pImage}
                                                 onClick={()=> {
@@ -192,7 +192,11 @@ const UploadAllProduct = ({onClose}) => {
                     />
 
                     <label htmlFor="description">Description:</label>
-                    <textarea name="description" rows={3} className="bg-slate-100 h-28 border resize-none p-2" placeholder="Enter product description" onChange={handleOnChange}>
+                    <textarea name="description" rows={3}
+                     className="bg-slate-100 h-28 border resize-none p-2" 
+                     placeholder="Enter product description"
+                     value={formData.description} 
+                     onChange={handleOnChange}>
 
                     </textarea>
 
