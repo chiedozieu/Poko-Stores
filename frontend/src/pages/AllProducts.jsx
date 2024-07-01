@@ -8,7 +8,7 @@ import AdminProductCard from "../components/AdminProductCard";
 
 const AllProducts = () => {
   const [openUploadAllProduct, setOpenUploadAllProduct] = useState(false);
-  const  [allProduct, setAllProduct] = useState();
+  const  [allProduct, setAllProduct] = useState([]);
 
   
 
@@ -37,14 +37,14 @@ useEffect(() => {
 
    {/* all product */}
 
-
+ 
 
         <div className="flex items-center gap-5 py-4">
           {
-            allProduct.map((product, index) => {
+            allProduct?.map((product, index) => {
               return(
 
-                <AdminProductCard product={product} key={index+allProduct} />
+                <AdminProductCard productData={product} key={index+allProduct} />
                
               )
             })

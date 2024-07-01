@@ -8,6 +8,8 @@ import { MdDelete } from "react-icons/md";
 import summaryApi from "../common/index.js";
 import {toast} from 'react-toastify'
 
+
+
 const UploadAllProduct = ({onClose}) => {
     const [formData, setFormData] = useState({
         productName: '',
