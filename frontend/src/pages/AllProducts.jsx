@@ -12,7 +12,7 @@ const AllProducts = () => {
 
   
 
-const fetchAllProduct = async () => {
+const  fetchAllProduct = async () => {
   const response = await fetch(summaryApi.allProduct.url)
   const data = await response.json();
 
@@ -44,7 +44,7 @@ useEffect(() => {
             allProduct?.map((product, index) => {
               return(
 
-                <AdminProductCard productData={product} key={index+allProduct} />
+                <AdminProductCard productData={product} key={index+allProduct} fetchData={fetchAllProduct}/>
                
               )
             })

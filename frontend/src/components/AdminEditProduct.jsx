@@ -12,7 +12,7 @@
 
 
 
- const AdminEditProduct = ({onClose, productEditData}) => {
+ const AdminEditProduct = ({onClose, productEditData, fetchData}) => {
   const [formData, setFormData] = useState({
 
     ...productEditData,
@@ -73,12 +73,13 @@ const handleSubmit = async (e) =>  {
         body: JSON.stringify(formData)
     })
     const data = await response.json(); 
-    
+
     console.log('Response Data:', data);  // Log response data
 
     if(data.success){
         toast.success(data?.message)
         onClose()
+        fetchData()
     }
     if(data.error){
         toast.error(data?.message)
