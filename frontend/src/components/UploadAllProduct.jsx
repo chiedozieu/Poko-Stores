@@ -10,7 +10,7 @@ import {toast} from 'react-toastify'
 
 
 
-const UploadAllProduct = ({onClose}) => {
+const UploadAllProduct = ({onClose, fetchData}) => {
     const [formData, setFormData] = useState({
         productName: '',
         brandName: '',
@@ -73,6 +73,7 @@ const UploadAllProduct = ({onClose}) => {
         if(data.success){
             toast.success(data?.message)
             onClose()
+            fetchData()
         }
         if(data.error){
             toast.error(data?.message)
@@ -146,7 +147,7 @@ const UploadAllProduct = ({onClose}) => {
 
                                     formData.productImage.map((pImage, index) => {
                                         return (
-                                        <div className="relative group" key={index+productImage}>
+                                        <div className="relative group" key={index}>
                                             <img
                                                 src={pImage} alt={pImage}
                                                 onClick={()=> {

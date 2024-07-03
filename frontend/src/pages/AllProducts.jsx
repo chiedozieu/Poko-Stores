@@ -39,7 +39,7 @@ useEffect(() => {
 
  
 
-        <div className="flex items-center gap-5 py-4">
+        <div className="flex items-center gap-5 py-4 flex-wrap h-[calc(100vh-200px)] overflow-y-scroll pl-2">
           {
             allProduct?.map((product, index) => {
               return(
@@ -49,14 +49,14 @@ useEffect(() => {
               )
             })
           }
-        </div>
+        </div> 
 
 
    
         {/* upload product component */}
         {
           openUploadAllProduct && (
-            <UploadAllProduct onClose={()=> setOpenUploadAllProduct(false)}/>
+            <UploadAllProduct onClose={()=> setOpenUploadAllProduct(false)} fetchData={fetchAllProduct}/>
           )
         }
     </div>
