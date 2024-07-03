@@ -37,7 +37,10 @@ const summaryApi = {
         url: `${backendDomain}/api/update-product`,
         method: 'POST' 
     },
-
+    getProductCategory: {
+        url: `${backendDomain}/api/get-category-product`,
+        method: 'GET' 
+    },
 
 }
 // summaryApi.signUP.url
@@ -63,6 +66,10 @@ const summaryApi = {
 
 // summaryApi.updateProduct.url
 // summaryApi.updateProduct.method
+
+
+// summaryApi.getProductCategory.url
+// summaryApi.getProductCategory.method
 
 
 

@@ -1,7 +1,7 @@
 import express from 'express';
 import { AllUsers, updateUser, userDetails, userLogOut, userSignIn, userSignUp } from '../controllers/userController.js';
 import { authToken } from '../middleware/authToken.js'
-import { getProduct, updateProduct, uploadProduct } from '../controllers/productsController.js';
+import { getCategoryProduct, getProduct, updateProduct, uploadProduct } from '../controllers/productsController.js';
 
 
 const router = express.Router();
@@ -22,6 +22,7 @@ router.post('/update-user', authToken, updateUser)
 router.post('/upload-product', authToken, uploadProduct)
 router.get('/get-product', getProduct)
 router.post('/update-product', authToken, updateProduct)
+router.get('/get-category-product', getCategoryProduct)
 
 
 

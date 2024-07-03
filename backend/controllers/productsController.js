@@ -2,6 +2,8 @@ import ProductModel from "../models/productModel.js";
 import { uploadProductPermission } from "../utils/permission.js";
 
 
+// uploadProduct
+
 export const uploadProduct = async (req, res) => {
     try {
         const sessionUserId = req.userId
@@ -28,7 +30,7 @@ export const uploadProduct = async (req, res) => {
     }
 }
 
-// 2
+// 2 getProduct
 
 export const getProduct = async (req, res) => {
     try {
@@ -49,6 +51,9 @@ export const getProduct = async (req, res) => {
         }); 
     }
 }
+
+
+// 3 updateProduct
 
 export const updateProduct = async (req, res) => {
     try {
@@ -81,3 +86,39 @@ export const updateProduct = async (req, res) => {
         }); 
     }
 }
+
+
+// 4 getCategory Product
+
+export const getCategoryProduct = async (req, res) => {
+    try {
+        const productCategory = await ProductModel.distinct('category')
+
+        console.log('getCategoryProduct', productCategory);
+        // array to store one product from each category
+
+        const productByCategory = []
+        
+        
+        for (const category of productCategory) {
+            const product = await ProductModel.findOne({category})
+            if(product){
+                productByCategory.push(product)
+            }
+        }
+
+        res.json({
+            message: 'Category Product',
+            data: productByCategory,
+            success: true,
+            error: false
+        })
+
+    } catch (error) {
+        res.status(400).json({
+            message: error.message || error,
+            error: true,
+            success: false,
+        });   
+    }
+};
