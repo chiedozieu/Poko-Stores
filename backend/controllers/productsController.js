@@ -88,7 +88,7 @@ export const updateProduct = async (req, res) => {
 }
 
 
-// 4 getCategory Product
+// 4 getCategory Product (First product from each category)
 
 export const getCategoryProduct = async (req, res) => {
     try {
@@ -121,3 +121,25 @@ export const getCategoryProduct = async (req, res) => {
         });   
     }
 };
+
+// 5 getCategory Product (First product from each category)
+
+export const getCategoryWiseProduct = async (reg, res) => {
+    try {
+        const { category } = reg?.body || req?.query
+        const product = await ProductModel.find({ category })
+
+        res.json({
+            message: 'Category Products',
+            data: product,
+            success: true,
+            error: false
+        })
+    } catch (error) {
+        res.status(400).json({
+            message: error.message || error,
+            error: true,
+            success: false,
+        });  
+    }
+}

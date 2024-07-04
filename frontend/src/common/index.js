@@ -41,6 +41,10 @@ const summaryApi = {
         url: `${backendDomain}/api/get-category-product`,
         method: 'GET' 
     },
+     categoryWiseProduct: {
+        url: `${backendDomain}/api/category-product`,
+        method: 'POST' 
+    },
 
 }
 // summaryApi.signUP.url
@@ -70,6 +74,9 @@ const summaryApi = {
 
 // summaryApi.getProductCategory.url
 // summaryApi.getProductCategory.method
+
+// summaryApi.categoryWiseProduct.url
+// summaryApi.categoryWiseProduct.method
 
 
 
