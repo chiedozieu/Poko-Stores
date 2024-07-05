@@ -34,11 +34,11 @@ const Header = () => {
      }
   }
   return (
-    <> 
-    <div className="sticky">
+    <div> 
+    <div className="">
       <TopHeader />
     </div>
-    <header className="h-[6rem] shadow-md bg-white">
+    <header className="h-[6rem] shadow-md bg-white w-full">
      
    <div className=" h-full container mx-auto flex items-center px-4 justify-between gap-4">
               {/* Logo */}
@@ -124,7 +124,7 @@ const Header = () => {
 
         </header>
 
-        </>
+        </div>
       )
 }
 

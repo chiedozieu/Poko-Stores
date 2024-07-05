@@ -122,7 +122,7 @@ export const getCategoryProduct = async (req, res) => {
     }
 };
 
-// 5 getCategory Product (First product from each category)
+// 5 getCategory Product (all category)
 
 export const getCategoryWiseProduct = async (reg, res) => {
     try {
@@ -135,6 +135,30 @@ export const getCategoryWiseProduct = async (reg, res) => {
             success: true,
             error: false
         })
+    } catch (error) {
+        res.status(400).json({
+            message: error.message || error,
+            error: true,
+            success: false,
+        });  
+    }
+}
+
+// 6 get Product details )
+
+export const getProductDetails = async (req, res) => {
+
+    try {
+        const { productId } = req.body 
+    const product = await ProductModel.findById(productId)
+
+    res.json({
+         message: 'Product Details',
+         data: product,
+         success: true,
+         error: false,
+    })
+
     } catch (error) {
         res.status(400).json({
             message: error.message || error,

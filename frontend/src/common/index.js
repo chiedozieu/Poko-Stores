@@ -45,8 +45,16 @@ const summaryApi = {
         url: `${backendDomain}/api/category-product`,
         method: 'POST' 
     },
+     productDetails: {
+        url: `${backendDomain}/api/product-details`,
+        method: 'POST' 
+    },
 
 }
+
+export default summaryApi;
+
+
 // summaryApi.signUP.url
 // summaryApi.signUP.method
 
@@ -77,9 +85,14 @@ const summaryApi = {
 
 // summaryApi.categoryWiseProduct.url
 // summaryApi.categoryWiseProduct.method
+// summaryApi.categoryWiseProduct.url
+// summaryApi.categoryWiseProduct.method
+
+// summaryApi.productDetails.url
+// summaryApi.productDetails.method
 
 
 
 
 
-export default summaryApi;
+

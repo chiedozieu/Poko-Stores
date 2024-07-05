@@ -16,6 +16,7 @@ import AdminPanel from './pages/AdminPanel.jsx'
 import AllUsers from './pages/AllUsers.jsx'
 import AllProducts from './pages/AllProducts.jsx'
 import CategoryProduct from './pages/CategoryProduct.jsx'
+import ProductDetails from './pages/ProductDetails.jsx'
 
 
 
@@ -54,6 +55,7 @@ useEffect(() => {
         <Route path='/forgot-password' element={<ForgotPassword />}/>
         <Route path='/signup' element={<SignUp />}/>
         <Route path='/category-product/:categoryName' element={<CategoryProduct />}/>
+        <Route path='/product/:id' element={<ProductDetails />}/>
         <Route path='/admin-panel' element={<AdminPanel />}>
           <Route path='all-users' element={<AllUsers />}/>
           <Route path='all-products' element={<AllProducts />}/>

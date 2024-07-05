@@ -2,19 +2,21 @@ import React, { useEffect, useRef, useState } from 'react'
 import fetchCategoryWiseProduct from '../utils/fetchCategoryWiseProduct'
 import displayNGNCurrency from '../utils/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
+import { Link } from 'react-router-dom'
+import addToCart from '../utils/addToCart'
 
 const HorizontalCardProduct = ({category, heading}) => {
      const [data, setData] = useState([])
-     const [loading, setLoading] = useState(false)
-     const loadingList = new Array(13).fill(null)
+    //  const [loading, setLoading] = useState(true)
+    //  const loadingList = new Array(13).fill(null)
 
     //  const[scroll, setScroll] = useState(0)
      const scrollElement =  useRef()
 
      const fetchData = async () => {
-        setLoading(true)
+        // setLoading(true)
         const categoryProduct = await fetchCategoryWiseProduct(category)
-        setLoading(false) 
+        // setLoading(false) 
 
         setData(categoryProduct.data)
      }
@@ -44,7 +46,7 @@ const HorizontalCardProduct = ({category, heading}) => {
                 data?.map((product, index) => {
                     return (
                             <div className="flex mx-auto" key={index}>
-                                <div className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex">
+                                <Link to={'product/'+product?._id} className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex">
                                     <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]">
                                         <img src={product?.productImage[0]} alt="" className='h-full hover:scale-110 transition-all'/>
             
@@ -59,12 +61,12 @@ const HorizontalCardProduct = ({category, heading}) => {
                                             <p className='text-slate-500 line-through'>{displayNGNCurrency(product?.price)}</p>
                                             )}
                                         </div>
-                                        <button className='rounded-md bg-red-700 hover:bg-red-800 text-white px-3 py-0.5 text-sm my-auto'>Add to cart</button>
+                                        <button className='rounded-md bg-red-700 hover:bg-red-800 text-white px-3 py-0.5 text-sm my-auto' onClick={(e)=> addToCart(e, product?._id)}>Add to cart</button>
 
                                     </div>
-                                </div>
+                                </Link>
                             </div>
-                    )
+                           )
                 })
             }
         </div>
