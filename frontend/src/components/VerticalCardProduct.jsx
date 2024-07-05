@@ -3,7 +3,7 @@ import fetchCategoryWiseProduct from '../utils/fetchCategoryWiseProduct'
 import displayNGNCurrency from '../utils/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 
-const HorizontalCardProduct = ({category, heading}) => {
+const VerticalCardProduct = ({category, heading}) => {
      const [data, setData] = useState([])
      const [loading, setLoading] = useState(false)
      const loadingList = new Array(13).fill(null)
@@ -43,13 +43,12 @@ const HorizontalCardProduct = ({category, heading}) => {
             {
                 data?.map((product, index) => {
                     return (
-                            <div className="flex mx-auto" key={index}>
-                                <div className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex">
-                                    <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]">
-                                        <img src={product?.productImage[0]} alt="" className='h-full hover:scale-110 transition-all'/>
-            
+                            <div className="flex" key={index}>
+                                <div className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow">
+                                    <div className="bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex items-center justify-center">
+                                        <img src={product?.productImage[0]} alt="" className='h-full hover:scale-105 transition-all mix-blend-multiply'/>
                                     </div>
-                                    <div className="py-4 px-2 font-medium text-base md:text-lg text-gray-700 grid">
+                                    <div className="py-4 px-2 font-medium text-base md:text-lg text-gray-700 grid gap-3">
                                         <h2 className='text-ellipsis line-clamp-1'>{product?.productName}</h2>
                                         <p className='capitalize text-slate-500 text-xs'>{product?.category}</p>
                                         <div className="text-sm flex gap-2 text-ellipsis line-clamp-1">
@@ -59,7 +58,7 @@ const HorizontalCardProduct = ({category, heading}) => {
                                             <p className='text-slate-500 line-through'>{displayNGNCurrency(product?.price)}</p>
                                             )}
                                         </div>
-                                        <button className='rounded-md bg-red-700 hover:bg-red-800 text-white px-3 py-0.5 text-sm my-auto'>Add to cart</button>
+                                        <button className='rounded-md bg-red-700 hover:bg-red-800 text-white px-3 py-2 text-sm my-auto'>Add to cart</button>
 
                                     </div>
                                 </div>
@@ -74,4 +73,4 @@ const HorizontalCardProduct = ({category, heading}) => {
   )
 }
 
-export default HorizontalCardProduct
+export default VerticalCardProduct
