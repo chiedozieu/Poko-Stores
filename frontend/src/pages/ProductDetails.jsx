@@ -4,6 +4,8 @@ import summaryApi from '../common'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
 import displayNGNCurrency from '../utils/displayCurrency';
+import VerticalCardProduct from '../components/VerticalCardProduct';
+import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay';
 
 const ProductDetails = () => {
 
@@ -72,13 +74,31 @@ const handleLeaveImageZoom = (e) => {
 
   return (
     <div className='container mx-auto p-4'>
-      <div className="min-h-[200px]">
+      <div className="min-h-[200px] flex flex-col lg:flex-row gap-4">
 
           {/* product image */}
-          <div className="flex gap-4">
-            <div className="h-96 flex flex-col lg:flex-row  gap-4 ">
+         
+            <div className="h-96 flex flex-col lg:flex-row-reverse gap-4">
+
+            {/* here */}
+            <div className="h-[300px] w-[340px] lg:h-96 lg:w-96 bg-slate-200 relative p-2" >
+                <img src={activeImage} alt="" className='h-full w-full object-scale-down mix-blend-multiply' onMouseMove={handleFullZoom} onMouseLeave={handleLeaveImageZoom}/>
+
+                  {/* product zoom */}
+                  {
+                    zoomImage && (
+
+                <div className="hidden lg:block absolute min-w-[500px] min-h-[400px] bg-slate-200 p-1 -right-[520px] top-0 overflow-hidden">
+                  <div className="w-full h-full mix-blend-multiply min-h-[400px] min-w-[500px] scale-125" style={{backgroundImage: `url(${activeImage})`, backgroundRepeat: 'no-repeat', backgroundPosition: `${zoomImageCoodinate.x * 100}% ${zoomImageCoodinate.y  * 100}%` }}>
+
+                   </div>
+                 </div> 
+                    )
+                  }
+              </div>
+
               <div className="h-full">
-                <div className="flex gap-2 lg:flex-col overflow-scroll h-full">
+                <div className="flex gap-2 lg:flex-col overflow-scroll h-full items-center">
                   {
                     data?.productImage.map((imageUrl, index) => {
                       return (
@@ -90,25 +110,9 @@ const handleLeaveImageZoom = (e) => {
                   }
                 </div>
               </div>
-              <div className="h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200 relative" >
-                <img src={activeImage} alt="" className='h-full w-full object-scale-down mix-blend-multiply' onMouseMove={handleFullZoom} onMouseLeave={handleLeaveImageZoom}/>
-                  {/* product zoom */}
-                  {
-                    zoomImage && (
-
-                <div className="hidden lg:block absolute min-w-[500px] min-h-[400px] bg-slate-200 p-1 -right-[520px] top-0 overflow-hidden">
-                  <div className="w-full h-full mix-blend-multiply min-h-[400px] min-w-[500px] scale-125" style={{backgroundImage: `url(${activeImage})`, backgroundRepeat: 'no-repeat', backgroundPosition: `${zoomImageCoodinate.x * 100}% ${zoomImageCoodinate.y  * 100}%` }}>
-
-                  </div>
-                </div> 
-                    )
-                  }
-
-
-              </div>
             </div>
              {/* product details  */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 mt-3 lg:mt-0">
                 <p className='bg-red-200 text-red-700 px-2 rounded-full w-fit'>{data?.brandName}</p>
                 <h2 className='text-2xl lg:text-4xl font-medium'>{data?.productName}</h2>
                 <p className='capitalize text-slate-500'>{data?.category}</p>
@@ -138,13 +142,21 @@ const handleLeaveImageZoom = (e) => {
                   <p className='text-slate-600 font-medium my-1'>Description: </p>
                   <p>{data?.description}</p>
                 </div>
-
-
             </div>
-          </div>
+
+             
+        
 
       </div>
+
+      {
+        data?.category && (
+      <CategoryWiseProductDisplay category={data?.category} heading={"Recommended Products"}/>
+
+        )
+      }
     </div>
+
   )
 }
 

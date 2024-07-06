@@ -35,7 +35,7 @@ const Header = () => {
   }
   return (
     <div> 
-    <div className="">
+    <div className="w-full h-full">
       <TopHeader />
     </div>
     <header className="h-[6rem] shadow-md bg-white w-full">

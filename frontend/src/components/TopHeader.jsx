@@ -8,7 +8,7 @@ export default function TopHeader() {
 
   return (
    
-      <div className='flex bg-blue-500 text-white justify-between max-w-screen-2xl h-10 items-center w-full '>
+      <div className='flex bg-blue-500 text-white justify-between h-10 items-center w-full '>
           <div className="ml-8">
           Welcome {user? ( <span className="capitalize text-xl font-bold">{user.username}</span>) : (
             <span className="capitalize text-xl font-bold">Guest</span>
