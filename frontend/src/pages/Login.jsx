@@ -12,7 +12,7 @@ const Login = () => {
     const [formData, setFormData] = useState({});
 
     const navigate = useNavigate();
-    const {FetchUserDetails} = useContext(Context)
+    const {FetchUserDetails, fetchUserAddToCart} = useContext(Context)
 
 
     // console.log('generalContext:', generalContext); 
@@ -40,6 +40,7 @@ const Login = () => {
               toast.success(data.message) 
               navigate('/')  
               FetchUserDetails() 
+              fetchUserAddToCart()
             }
             if(data.error){
               toast.error(data.message)

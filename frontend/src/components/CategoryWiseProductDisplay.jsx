@@ -4,11 +4,20 @@ import displayNGNCurrency from '../utils/displayCurrency'
 
 import { Link } from 'react-router-dom'
 import addToCart from '../utils/addToCart'
+import Context from '../context'
+import { useContext } from 'react'
 
 const CategoryWiseProductDisplay = ({category, heading}) => {
      const [data, setData] = useState([])
-    //  const [loading, setLoading] = useState(false)
+    //  const [loading, setLoading] = useState(false) 
     //  const loadingList = new Array(13).fill(null)
+
+    const {fetchUserAddToCart} = useContext(Context)
+
+    const handleAddToCart = async (e, id) => {
+        await addToCart(e,id)
+        await fetchUserAddToCart()
+    }
 
 
      const fetchData = async () => {
@@ -48,7 +57,7 @@ const CategoryWiseProductDisplay = ({category, heading}) => {
                                             <p className='text-slate-500 line-through'>{displayNGNCurrency(product?.price)}</p>
                                             )}
                                         </div>
-                                        <button className='rounded-md bg-red-700 hover:bg-red-800 text-white px-3 py-2 text-sm my-auto' onClick={(e)=> addToCart(e, product?._id)}>Add to cart</button>
+                                        <button className='rounded-md bg-red-700 hover:bg-red-800 text-white px-3 py-2 text-sm my-auto' onClick={(e)=>handleAddToCart(e,product?._id)}>Add to cart</button>
 
                                     </div>
                                 </Link>

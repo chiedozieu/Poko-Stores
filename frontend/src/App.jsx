@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home' 
 import Header from './components/Header'
@@ -22,6 +22,7 @@ import ProductDetails from './pages/ProductDetails.jsx'
 
 const App = () => {
   const dispatch = useDispatch()
+  const [cartProductCount, setCartProductCount] = useState(0)
 
 const FetchUserDetails = async () => {
   const res = await fetch(summaryApi.currentUser.url, {
@@ -30,23 +31,36 @@ const FetchUserDetails = async () => {
   })
   const data = await res.json();
   
-  
   if (data.success) {
     dispatch(setUserDetails(data.data))
   }
 
 };
 
+const fetchUserAddToCart = async () => {
+  const response = await fetch(summaryApi.countAddToCartProduct.url, {
+    method: summaryApi.countAddToCartProduct.method,
+    credentials: 'include',
+  })
+
+  const responseData = await response.json();
+   if (responseData.success) {
+    setCartProductCount(responseData.data?.count)
+   }
+}
+
 
 useEffect(() => {
   //user Details
-  FetchUserDetails() 
+  FetchUserDetails()
+    //user details cart product
+  fetchUserAddToCart()
 }, [])
 
   return (
   <BrowserRouter>
-      <Context.Provider value={{FetchUserDetails}}> 
-      <ToastContainer />
+      <Context.Provider value={{FetchUserDetails, cartProductCount, fetchUserAddToCart}}> 
+      <ToastContainer position='top-center' />
       <Header />
     <main className='min-h-[calc(100vh-200px)]'>
       <Routes>

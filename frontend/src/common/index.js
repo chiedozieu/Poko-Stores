@@ -49,6 +49,14 @@ const summaryApi = {
         url: `${backendDomain}/api/product-details`,
         method: 'POST' 
     },
+     addToCartProduct: {
+        url: `${backendDomain}/api/addtocart`,
+        method: 'POST' 
+    },
+     countAddToCartProduct: {
+        url: `${backendDomain}/api/count-add-to-cart-product`,
+        method: 'GET' 
+    },
 
 }
 
@@ -85,11 +93,18 @@ export default summaryApi;
 
 // summaryApi.categoryWiseProduct.url
 // summaryApi.categoryWiseProduct.method
+
 // summaryApi.categoryWiseProduct.url
 // summaryApi.categoryWiseProduct.method
 
 // summaryApi.productDetails.url
 // summaryApi.productDetails.method
+
+// summaryApi.addToCartProduct.url
+// summaryApi.addToCartProduct.method
+
+// summaryApi.countAddToCartProduct.url
+// summaryApi.countAddToCartProduct.method
 
 
 

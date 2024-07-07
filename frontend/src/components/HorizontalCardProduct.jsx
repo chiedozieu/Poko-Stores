@@ -4,6 +4,8 @@ import displayNGNCurrency from '../utils/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 import addToCart from '../utils/addToCart'
+import Context from '../context'
+import { useContext } from 'react'
 
 const HorizontalCardProduct = ({category, heading}) => {
      const [data, setData] = useState([])
@@ -12,6 +14,14 @@ const HorizontalCardProduct = ({category, heading}) => {
 
     //  const[scroll, setScroll] = useState(0)
      const scrollElement =  useRef()
+
+     const {fetchUserAddToCart} = useContext(Context)
+
+     const handleAddToCart = async (e, id) => {
+         await addToCart(e,id)
+         await fetchUserAddToCart()
+     }
+ 
 
      const fetchData = async () => {
         // setLoading(true)
@@ -61,7 +71,7 @@ const HorizontalCardProduct = ({category, heading}) => {
                                             <p className='text-slate-500 line-through'>{displayNGNCurrency(product?.price)}</p>
                                             )}
                                         </div>
-                                        <button className='rounded-md bg-red-700 hover:bg-red-800 text-white px-3 py-0.5 text-sm my-auto' onClick={(e)=> addToCart(e, product?._id)}>Add to cart</button>
+                                        <button className='rounded-md bg-red-700 hover:bg-red-800 text-white px-3 py-0.5 text-sm my-auto' onClick={(e)=> handleAddToCart(e, product?._id)}>Add to cart</button>
 
                                     </div>
                                 </Link>

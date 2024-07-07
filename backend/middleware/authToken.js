@@ -5,7 +5,11 @@ export const authToken = (req, res, next) => {
        const token = req.cookies?.token 
 
        if(!token) {
-        return res.status(200).json('User not signed in')    
+        return res.status(200).json({
+            message: 'Please Login',
+            success: false,
+            error: true
+        })   
        }
 
        jwt.verify(token, process.env.JWT_SECRET_KEY, function(error, decoded) {
