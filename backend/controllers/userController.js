@@ -83,7 +83,7 @@ export const userSignIn = async (req, res) => {
       }
       const tokenData = {id: validUser._id, email: validUser.email}
 
-      const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: '8h' });
+      const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: '3d' });
 
       const tokenOptions = {
          httpOnly: true,   

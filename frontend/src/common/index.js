@@ -57,6 +57,19 @@ const summaryApi = {
         url: `${backendDomain}/api/count-add-to-cart-product`,
         method: 'GET' 
     },
+     addToCartProductView: {
+        url: `${backendDomain}/api/view-cart`,
+        method: 'GET' 
+    },
+     updateCartProduct: {
+        url: `${backendDomain}/api/update-cart-product`,
+        method: 'POST' 
+    },
+    deleteCartProduct: {
+        url: `${backendDomain}/api/delete-cart-product `,
+        method: 'POST' 
+    },
+
 
 }
 
@@ -105,6 +118,15 @@ export default summaryApi;
 
 // summaryApi.countAddToCartProduct.url
 // summaryApi.countAddToCartProduct.method
+
+// summaryApi.addToCartProductView.url
+// summaryApi.addToCartProductView.method
+
+// summaryApi.updateCartProduct.url
+// summaryApi.updateCartProduct.method
+
+// summaryApi.deleteCartProduct.url
+// summaryApi.deleteCartProduct.method
 
 
 

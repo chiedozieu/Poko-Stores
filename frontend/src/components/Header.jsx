@@ -94,7 +94,7 @@ const Header = () => {
 
                           <Link to='/admin-panel/all-products' className="whitespace-nowrap hover:bg-slate-100 p-2" >Admin Panel</Link>
                           )
-                        } 
+                        }  
                         </nav>
                       </div>
                         )
@@ -102,14 +102,14 @@ const Header = () => {
                 </div> 
                   {
                     user?._id && (
-                <div className="text-3xl relative">
+                <Link to={'/cart'} className="text-3xl relative">
                   <span className="flex">
                     <BsCart4 />
                   </span>
                   <div className="bg-red-700 text-white w-5 h-5 p-1 flex items-center justify-center rounded-full absolute -top-1 -right-2 ">
                     <p className="text-sm">{context?.cartProductCount}</p>
                   </div>
-                </div>
+                </Link>
                     )
                   }
                 <div className="">

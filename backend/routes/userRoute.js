@@ -2,7 +2,7 @@ import express from 'express';
 import { AllUsers, updateUser, userDetails, userLogOut, userSignIn, userSignUp } from '../controllers/userController.js';
 import { authToken } from '../middleware/authToken.js'
 import { getCategoryWiseProduct, getCategoryProduct, getProduct, updateProduct, uploadProduct, getProductDetails } from '../controllers/productsController.js';
-import { addToCart, countAddToCartProduct } from '../controllers/addToCartController.js';
+import { AddToCartViewProduct, addToCart, countAddToCartProduct, deleteAddToCartProduct, updateAddToCartProduct } from '../controllers/addToCartController.js';
 
 
 const router = express.Router();
@@ -31,6 +31,9 @@ router.post('/product-details', getProductDetails)
 
 router.post('/addtocart', authToken, addToCart)
 router.get('/count-add-to-cart-product', authToken, countAddToCartProduct)
+router.get('/view-cart', authToken, AddToCartViewProduct)
+router.post('/update-cart-product', authToken, updateAddToCartProduct) 
+router.post('/delete-cart-product', authToken, deleteAddToCartProduct) 
 
 
 export default router;

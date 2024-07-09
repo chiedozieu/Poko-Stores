@@ -71,3 +71,91 @@ export const countAddToCartProduct = async (req, res) => {
 }
 
 
+// 3 View product in add cart 
+
+export const AddToCartViewProduct  = async (req, res) => {
+    try {
+       
+        const currentUser = req.userId
+
+        const allProduct = await addToCartModel.find({
+            userId: currentUser,
+        }).populate('productId')
+
+        res.json({
+            data: allProduct,
+            success: true,
+            error: false
+        })
+
+    } catch (error) {
+        res.status(400).json({
+            message: error?.message || error ,
+            error: true,
+            success: false,
+        }); 
+    }
+}
+
+// 4 update add cart 
+
+export const updateAddToCartProduct  = async (req, res) => {
+    try { 
+       
+        const currentUserId = req.userId
+        const addToCartProductId = req?.body?._id
+
+        const qty = req.body.quantity
+
+        const updateProduct = await addToCartModel.updateOne({_id: addToCartProductId}, {
+          ...(qty && {quantity : qty})
+        })
+
+        res.json({
+            message: 'Product updated successfully',
+            data: updateProduct,
+            success: true,
+            error: false
+        })
+
+    } catch (error) {
+        res.status(400).json({
+            message: error?.message || error ,
+            error: true,
+            success: false,
+        }); 
+    }
+}
+
+// 5 delete item in add cart 
+
+export const deleteAddToCartProduct  = async (req, res) => {
+    try { 
+        const currentUserId = req.userId
+        const addToCartProductId = req?.body?._id
+
+        const deleteProduct = await addToCartModel.deleteOne({_id: addToCartProductId  })
+
+        res.json({
+            message: 'Product deleted successfully',
+            success: true,
+            error: false,
+            data: deleteProduct
+        })
+        
+
+    } catch (error) {
+        res.status(400).json({
+            message: error?.message || error ,
+            error: true, 
+            success: false,
+        }); 
+    }
+}
+
+
+
+
+
+
+
