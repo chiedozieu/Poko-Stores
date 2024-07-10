@@ -2,7 +2,7 @@ import Logo from "./Logo";
 import { PiUser } from "react-icons/pi";
 import { BsCart4 } from "react-icons/bs";
 import TopHeader from "./TopHeader";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import summaryApi from "../common";
@@ -18,6 +18,8 @@ const Header = () => {
   const dispatch = useDispatch()
   const [showMenu, setShowMenu] = useState(false)
   const context = useContext(Context)
+  const navigate = useNavigate()
+  const searchInput = useLocation()
 
   const handleLogOut = async () => {
     const res = await fetch(summaryApi.userLogOUT.url, {
@@ -34,7 +36,19 @@ const Header = () => {
     if(data.error){
       toast.error(data.message)
      }
+  } 
+
+
+  const handleSearch = (e) => {
+     const { value } = e.target
+     if(value){
+      navigate(`/search?q=${value}`)
+     }else{
+      navigate('/search') 
+     }
   }
+ 
+
   return (
     <div> 
     <div className="w-full h-full">
@@ -59,7 +73,7 @@ const Header = () => {
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Search products ..." required />
+                <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Search products ..." required onChange={handleSearch}/>
                 <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Search</button>
             </div>
         </form>

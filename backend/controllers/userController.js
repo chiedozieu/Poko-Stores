@@ -2,7 +2,7 @@ import UserModel from "../models/userModel.js"
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-// 1
+// 1 Register New User
 
 
 export const userSignUp = async (req, res,) => {
@@ -52,8 +52,7 @@ export const userSignUp = async (req, res,) => {
             error: false,
             message: 'User created successfully'
          })
-    } catch (error) {
-        
+    } catch (error) {        
         res.json({
             message: error.message || error ,
             error: true,
@@ -62,7 +61,7 @@ export const userSignUp = async (req, res,) => {
     }
 }
 
-// 2
+// 2 Login registered user /Add cookie
 
 export const userSignIn = async (req, res) => {
    const {email, password} = req.body;
@@ -89,13 +88,12 @@ export const userSignIn = async (req, res) => {
          httpOnly: true,   
          secure: true,
       }
-res.cookie("token", token, tokenOptions).json({
-   message: 'Login successful',
-   data: token,
-   success: true,
-   error:false
-
-});
+      res.cookie("token", token, tokenOptions).json({
+         message: 'Login successful',
+         data: token,
+         success: true,
+         error:false
+      });
    } catch (error) {
       res.json({
          message: error.message || error ,
@@ -108,7 +106,7 @@ res.cookie("token", token, tokenOptions).json({
 
 }
  
-// 3
+// 3 Getting a user details
 
 export const userDetails = async (req, res,) => {
    try {
@@ -131,7 +129,7 @@ export const userDetails = async (req, res,) => {
    }
 }
 
-// 4
+// 4 Logout user
 
 export const userLogOut = async (req, res) => {
    try {
@@ -153,7 +151,7 @@ export const userLogOut = async (req, res) => {
 };
 
 
-// 5
+// 5 Getting all users
 
 export const AllUsers = async (req, res) => {
    try {
@@ -176,7 +174,7 @@ export const AllUsers = async (req, res) => {
    }
 } 
 
-// 6
+// 6 update user
 
 export const updateUser = async (req, res) => {
    try {

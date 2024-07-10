@@ -18,6 +18,7 @@ import AllProducts from './pages/AllProducts.jsx'
 import CategoryProduct from './pages/CategoryProduct.jsx'
 import ProductDetails from './pages/ProductDetails.jsx'
 import Cart from './pages/Cart.jsx'
+import SearchProducts from './pages/SearchProducts.jsx'
 
 
 
@@ -72,6 +73,7 @@ useEffect(() => {
         <Route path='/category-product/:categoryName' element={<CategoryProduct />}/>
         <Route path='/product/:id' element={<ProductDetails />}/>
         <Route path='/cart' element={<Cart />}/>
+        <Route path='/search' element={<SearchProducts  />}/>
         <Route path='/admin-panel' element={<AdminPanel />}>
           <Route path='all-users' element={<AllUsers />}/>
           <Route path='all-products' element={<AllProducts />}/>

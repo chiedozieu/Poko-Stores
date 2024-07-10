@@ -167,3 +167,40 @@ export const getProductDetails = async (req, res) => {
         });  
     }
 }
+
+// 7 Search Product details )
+
+
+
+export const searchProduct  = async (req, res) => {
+
+    try {
+       const query = req.query.q
+
+       const regex = new RegExp(query,'i','g')
+       const product = await ProductModel.find({
+        '$or' : [
+            {
+            productName: regex
+        },
+        {
+            category: regex
+        }
+    ]
+       })
+
+       res.json({
+        data: product,
+        message:'Searched product',
+        success: true,
+        error: false
+       })
+
+    } catch (error) {
+        res.status(400).json({
+            message: error.message || error,
+            error: true,
+            success: false,
+        });  
+    }
+}

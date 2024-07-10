@@ -46,7 +46,7 @@ const fetchProductDetails = async () => {
 
 useEffect(() => {
   fetchProductDetails()
-}, []) 
+}, [params]) 
 
 const handleMouseEnterZoom = (imageUrl) => {
   setActiveImage(imageUrl)

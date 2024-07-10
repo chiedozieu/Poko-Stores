@@ -43,7 +43,7 @@ const Login = () => {
           profilePic: imagePic
         }
       }) 
-      console.log('this is image ', profilePic)
+      
     }
 
     const handleSubmit = async (e) => {
