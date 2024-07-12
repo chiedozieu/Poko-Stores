@@ -70,7 +70,7 @@ useEffect(() => {
         <Route path='/login' element={<Login />}/>
         <Route path='/forgot-password' element={<ForgotPassword />}/>
         <Route path='/signup' element={<SignUp />}/>
-        <Route path='/category-product/:categoryName' element={<CategoryProduct />}/>
+        <Route path='/category-product' element={<CategoryProduct />}/>
         <Route path='/product/:id' element={<ProductDetails />}/>
         <Route path='/cart' element={<Cart />}/>
         <Route path='/search' element={<SearchProducts  />}/>

@@ -204,3 +204,39 @@ export const searchProduct  = async (req, res) => {
         });  
     }
 }
+ 
+
+// 8 filter Product  )
+
+
+
+export const filterProduct  = async (req, res) => {
+
+    try {
+      const categoryList = req?.body?.category || []; 
+
+      const product = await ProductModel.find({
+        
+             category: {
+                '$in': categoryList
+             }
+        
+      })
+
+      res.json({
+        data: product,
+        success: true,
+        error: false,
+        message: 'Product'
+      })
+    
+
+    } catch (error) {
+        res.status(400).json({
+            message: error.message || error,
+            error: true,
+            success: false,
+        });  
+    }
+}
+

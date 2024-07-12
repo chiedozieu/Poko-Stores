@@ -17,7 +17,7 @@ const VerticalSearchProductCard = ({data=[]}) => {
   return (
     <div>
        <div className='container mx-auto px-2 my-6 relative'>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,300px))] justify-center md:justify-between md:gap-2 transition-all" onClick={scrollTop }>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,280px))] justify-center md:justify-between md:gap-1 transition-all" onClick={scrollTop }>
            
             {
                 data?.map((product, index) => { 

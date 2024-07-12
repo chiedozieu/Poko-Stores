@@ -69,11 +69,11 @@ const summaryApi = {
         url: `${backendDomain}/api/delete-cart-product`,
         method: 'POST' 
     },
-    searchProduct: {
-        url: `${backendDomain}/api/search`,
-        method: 'GET' 
+    filterProduct: {
+        url: `${backendDomain}/api/filter-product`,
+        method: 'POST' 
     },
-
+ 
 
 }
 
@@ -133,7 +133,10 @@ export default summaryApi;
 // summaryApi.deleteCartProduct.method
 
 // summaryApi.searchProduct.url
-// summaryApi.searchProduct.method
+// summaryApi.searchProduct.method 
+
+// summaryApi.filterProduct.url
+// summaryApi.filterProduct.method
 
 
 
