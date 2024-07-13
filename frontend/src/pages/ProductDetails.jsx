@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
- import {useParams} from 'react-router-dom'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+ import {useNavigate, useParams} from 'react-router-dom'
 import summaryApi from '../common'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
 import displayNGNCurrency from '../utils/displayCurrency';
 import VerticalCardProduct from '../components/VerticalCardProduct';
 import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay';
+import addToCart from '../utils/addToCart';
+import Context from '../context';
 
 const ProductDetails = () => {
 
@@ -26,6 +28,9 @@ const ProductDetails = () => {
     y:0
   })
   const [zoomImage, setZoomImage] = useState(false)
+
+  const {fetchUserAddToCart} = useContext(Context)
+  const navigate = useNavigate()
 
   
 
@@ -72,6 +77,15 @@ const handleLeaveImageZoom = (e) => {
   setZoomImage(false)
 }
 
+const handleAddToCart = async (e,id) => { 
+  await addToCart(e,id)
+  fetchUserAddToCart()
+}
+const handleBuy = async (e,id) => {
+  await addToCart(e,id)
+  fetchUserAddToCart()
+ navigate('/cart')
+}
   return (
     <div className='container mx-auto p-4'>
       <div className="min-h-[200px] flex flex-col lg:flex-row gap-4">
@@ -134,12 +148,12 @@ const handleLeaveImageZoom = (e) => {
                 </div>
 
                 <div className="flex gap-3 items-center my-2">
-                  <button className='border-2 border-red-700 rounded px-3 py-1 min-w-[120px] font-medium text-red-700 hover:text-white hover:bg-red-700 cursor-pointer'>Buy</button>
-                  <button className='hover:border-2 hover:border-red-700 hover:bg-slate-100 hover:text-red-700 bg-red-700 text-white cursor-pointer rounded px-3 py-1 min-w-[120px]'>Add To Cart</button>
+                  <button className='border-2 border-red-700 rounded px-3 py-1 min-w-[120px] font-medium text-red-700 hover:text-white hover:bg-red-700 cursor-pointer' onClick={(e)=>handleBuy(e, data?._id)}>Buy</button>
+                  <button className='hover:border-2 hover:border-red-700 hover:bg-slate-100 hover:text-red-700 bg-red-700 text-white cursor-pointer rounded px-3 py-1 min-w-[120px]' onClick={(e)=>handleAddToCart(e,data?._id)}>Add To Cart</button>
                 </div>
 
                 <div className="">
-                  <p className='text-slate-600 font-medium my-1'>Description: </p>
+                  <p className='text-slate-600 font-medium my-1'>Description: </p> 
                   <p>{data?.description}</p>
                 </div>
             </div>

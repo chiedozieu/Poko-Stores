@@ -12,23 +12,30 @@ const Cart = () => {
     const loadingCart = new Array(context.cartProductCount).fill(null)
  
     const fetchData = async () => {
-        setLoading(true)
+        // setLoading(true)
         const response = await fetch(summaryApi.addToCartProductView.url, {
             method: summaryApi.addToCartProductView.method,
             credentials: 'include',
             headers: {'content-type': 'application/json'}
         })
-        setLoading(false)
+        // setLoading(false)
         const responseData = await response.json()
 
         if(responseData.success){
             setData(responseData.data)
         }
-
     }
+
+    const handleLoading = async () => {
+        await fetchData()
+    }
+
     useEffect(()=> {
-        fetchData()
-    }, [])
+        setLoading(true)
+        handleLoading()
+        setLoading(false)
+        
+    }, []) 
 
     const increaseQty = async (id, qty) => {
          const response = await fetch(summaryApi.updateCartProduct.url, {
@@ -107,7 +114,7 @@ const Cart = () => {
             {/* View product */}
 
         <div className="flex flex-col md:flex-row lg:justify-between p-4 gap-4">
-            <div className="w-full max-w-3xl">
+            <div className="w-full max-w-3xl h-[calc(100vh-220px)] overflow-y-scroll ">
                 {
                     loading ? (
                         loadingCart.map((load, index) =>{
@@ -122,7 +129,7 @@ const Cart = () => {
                         data?.map((product, index)=> {
                            return ( 
                             <div key={index + product?._id} className="w-full bg-white h-40 my-2 border border-slate-300 grid grid-cols-[150px,1fr]" onClick={scrollTop}>
-                                <div className="w-40 h-40 bg-slate-200 ">
+                                <div className="w-40 h-40 bg-slate-200">
                                     <img src={product?.productId?.productImage[0]} alt="" className='w-full
                                      h-full object-scale-down mix-blend-multiply p-1'/>
                                 </div>
