@@ -7,7 +7,7 @@ import VerticalCardProduct from '../components/VerticalCardProduct'
 const Home = () => {
   
   return (
-    <div className=''>
+    <div className='h-[calc(100vh-220px)] overflow-y-scroll scrollbar-hidden'>
       <CategoryList />
       <BannerProduct />
       <VerticalCardProduct category={'mobiles'} heading={"Mobiles"}/>

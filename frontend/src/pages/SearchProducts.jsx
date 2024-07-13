@@ -22,7 +22,7 @@ const SearchProducts = () => {
         fetchProduct()
     }, [query])
   return (
-    <div className='container mx-auto p-4'>
+    <div className='container mx-auto p-4 h-[calc(100vh-120px)] overflow-y-scroll scrollbar-hidden'>
     {
         loading && (
             <p className='text-lg text-center'>Loading...</p>
